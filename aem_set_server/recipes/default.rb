@@ -76,5 +76,5 @@ case node["platform"]
   when "redhat", "centos"
         action :nothing
     end
-
+  end
 end
