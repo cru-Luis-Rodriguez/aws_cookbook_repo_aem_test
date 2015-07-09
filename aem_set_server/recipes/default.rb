@@ -20,7 +20,7 @@ case node["platform"]
         command 'yum update'
         ignore_failure true
     end
-
+end
 
 
 package "curl" do
@@ -63,18 +63,12 @@ case node["platform"]
       action :install
       ignore_failure true
     end
+end
 
-case node["platform"]
-  when "ubuntu", "debian"
-    directory "#{node[:apache][:dir]}/conf" do
-      owner "root"
-      group node[:apache][:root_group]
-      mode "0775"
-      action :create
-      only_if { ::File.directory?('#{node[:apache][:dir]}') }
-    end
-  when "redhat", "centos"
-        action :nothing
-    end
-  end
+directory "#{node[:apache][:dir]}/conf" do
+    owner "root"
+    group node[:apache][:root_group]
+    mode "0775"
+    action :create
+    only_if { ::File.directory?('/etc/apache2') }
 end
