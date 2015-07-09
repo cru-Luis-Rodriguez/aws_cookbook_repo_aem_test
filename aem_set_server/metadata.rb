@@ -1,6 +1,6 @@
 name             'aem_set_server'
-maintainer       'YOUR_COMPANY_NAME'
-maintainer_email 'YOUR_EMAIL'
+maintainer       'cru'
+maintainer_email 'luis.rodriguez@cru.org'
 license          'All rights reserved'
 description      'Installs/Configures aem_set_server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
