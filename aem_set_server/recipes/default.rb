@@ -43,6 +43,7 @@ end
 %w{maven ruby git gcc}.each do |pkg2|
  package "#{pkg2}" do
    action :upgrade
+   ignore_failure true
  end
 end
 
