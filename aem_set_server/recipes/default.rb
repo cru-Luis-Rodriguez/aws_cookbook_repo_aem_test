@@ -21,6 +21,7 @@ case node:[:platform]
         ignore_failure true
     end
   end
+end
 
 
 package "curl" do
@@ -75,3 +76,4 @@ case node:[:platform]
       only_if { ::File.directory?('#{node[:apache][:dir]}') }
     end
   end
+end
