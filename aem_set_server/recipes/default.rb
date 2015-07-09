@@ -8,27 +8,26 @@
 #
 include_recipe "apache2"
 
-case node:[:platform]
+case node["platform"]
   when "ubuntu", "debian"
     execute 'apt-get-update' do
       command 'apt-get update'
       ignore_failure true
       not_if { ::File.exist?('/var/lib/apt/periodic/update-success-stamp') }
     end
-  when "redhat", "centor"
+  when "redhat", "centos"
       execute 'yum-update' do
         command 'yum update'
         ignore_failure true
     end
-  end
-end
+
 
 
 package "curl" do
   action :install
 end
 
-case node[:platform]
+case node["platform"]
   when "redhat", "centos"
     package "libcurl-devel" do
       action :upgrade
@@ -52,7 +51,7 @@ gem_package "bundler" do
   ignore_failure true
 end
 
-case node[:platform]
+case node["platform"]
   when "redhat", "centos"
     chef_gem "curb" do
       compile_time true if Chef::Resource::ChefGem.instance_methods(false).include?(:compile_time)
@@ -64,9 +63,8 @@ case node[:platform]
       action :install
       ignore_failure true
     end
-end
 
-case node:[:platform]
+case node["platform"]
   when "ubuntu", "debian"
     directory "#{node[:apache][:dir]}/conf" do
       owner "root"
@@ -75,5 +73,8 @@ case node:[:platform]
       action :create
       only_if { ::File.directory?('#{node[:apache][:dir]}') }
     end
-  end
+  when "redhat", "centos"
+        action :nothing
+    end
+
 end
