@@ -8,7 +8,7 @@
 #
 include_recipe "apache2"
 
-case node:[platform]
+case node:[:platform]
   when "ubuntu", "debian"
     execute 'apt-get-update' do
       command 'apt-get update'
@@ -65,7 +65,7 @@ case node[:platform]
     end
 end
 
-case node:[platform]
+case node:[:platform]
   when "ubuntu", "debian"
     directory "#{node[:apache][:dir]}/conf" do
       owner "root"
