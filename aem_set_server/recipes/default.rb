@@ -7,6 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 include_recipe "apache2"
+include_recipe "aem"
 
 case node["platform"]
   when "ubuntu", "debian"
@@ -72,4 +73,42 @@ directory "#{node[:apache][:dir]}/conf" do
     mode "0775"
     action :create
     only_if { ::File.directory?('/etc/apache2') }
+end
+
+unless node['aem']['license_url']
+  Chef::Application.fatal! 'aem.license_url attribute cannot be nil. Please populate that attribute.'
+end
+
+unless node['aem']['download_url']
+  Chef::Application.fatal! 'aem.download attribute cannot be nil. Please populate that attribute.'
+end
+
+# See if we can get this value early enough from AEM itself so we don't have to ask for it.
+unless node['aem']['version']
+  Chef::Application.fatal! 'aem.version attribute cannot be nil. Please populate that attribute.'
+end
+
+include_recipe "java"
+package "unzip"
+
+if node[:aem][:use_yum] then
+  package 'aem' do
+    version node[:aem][:version]
+    action :install
+  end
+else
+  user "crx" do
+    comment "crx/aem role user"
+    system true
+    shell "/bin/bash"
+    home "/home/crx"
+    supports :manage_home => true
+    action :create
+  end
+end
+
+directory "/home/crx/.ssh" do
+  owner "crx"
+  group "crx"
+  mode 0700
 end

@@ -16,7 +16,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "aem::_base_aem_setup"
+if ["debian", "ubuntu"].include?(node["platform"])
+  # do debian/ubuntu things
+  include_recipe "aem_set_server::default"
+end
+if %w{rhel}.include?(node["platform_family"])
+  # do RHEL things
+  include_recipe "aem::_base_aem_setup"
+end
 
 unless node[:aem][:use_yum]
   aem_jar_installer "publish" do
