@@ -1,0 +1,3 @@
+[submodule "aem"]
+	path = aem
+	url = https://github.com/CruGlobal/aem.git
