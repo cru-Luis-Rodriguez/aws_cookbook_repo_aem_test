@@ -18,8 +18,6 @@
 
 #add support for ubuntu
 
-include_recipe "apache2"
-
 case node["platform"]
   when "ubuntu", "debian"
     execute 'apt-get-update' do
@@ -77,9 +75,9 @@ case node["platform"]
     end
 end
 
-directory "#{node[:apache][:dir]}/conf" do
+directory "/etc/apache2/conf" do
     owner "root"
-    group node[:apache][:root_group]
+    group "root"
     mode "0775"
     action :create
     only_if { ::File.directory?('/etc/apache2') }
