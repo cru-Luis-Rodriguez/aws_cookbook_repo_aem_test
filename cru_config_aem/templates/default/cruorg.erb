@@ -1,0 +1,208 @@
+# This file is managed by chef server using cookbook https://github.com/cru-Luis-Rodriguez/aem_disp_config
+#Site alias are set on chef server node Env
+#
+<VirtualHost _default_:80>
+        ServerName www.<%= @site %>
+        ServerAlias <%= @host_ip %> <%= @host_name %> <%= @site %> <%= @site_alias1  %> <%= @site_alias2 %> <%= @host_alias %>
+
+	#ServerAdmin provided via chef role
+        ServerAdmin <%= @server_admin %>
+        DocumentRoot /var/www/html/<%= @site %>
+
+        <Directory /var/www/html/<%= @site %>>
+                <IfModule disp_apache2.c>
+                        SetHandler dispatcher-handler
+                </IfModule>
+
+                Options Indexes FollowSymLinks
+                AllowOverride None
+
+        </Directory>
+
+  RewriteEngine On
+
+# all  urls set env vars FIRST
+       RewriteRule (.*) - [QSA,E=FIRST:%{REQUEST_SCHEME}://%{HTTP_HOST}:%{SERVER_PORT}%{REQUEST_URI}?%{QUERY_STRING}]
+
+# if env var FIRST is set then create header First: $ENV{FIRST}
+       RequestHeader set X-Forwarded-Path %{FIRST}e env=FIRST
+
+#Legacy URL rewrites
+        RewriteRule ^/training-and-growth/classics/transferable-concepts/love-by-faith/02-5-truths-about-love-unconditional.htm /train-and-grow/classics/transferable-concepts/love-by-faith.5.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/transferable-concepts/be-filled-with-the-holy-spirit/07-steps-to-being-filled.htm /train-and-grow/classics/transferable-concepts/be-filled-with-the-holy-spirit.7.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/10-basic-steps/3-the-holy-spirit/05-how-you-can-know.htm /train-and-grow/classics/10-basic-steps/3-the-holy-spirit.5.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/10-basic-steps/3-the-holy-spirit/01-who-is-holy-spirit.htm /train-and-grow/classics/10-basic-steps/3-the-holy-spirit.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/devotional-life/7-steps-to-fasting/02-how-to-begin-your-fast.htm /train-and-grow/devotional-life/7-steps-to-fasting.2.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/10-basic-steps/1-the-christian-adventure/03-five-principles-of-growth.htm /train-and-grow/classics/10-basic-steps/1-the-christian-adventure.3.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/10-basic-steps/3-the-holy-spirit/01-who-is-holy-spirit.htm /train-and-grow/classics/10-basic-steps/3-the-holy-spirit.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/transferable-concepts/be-filled-with-the-holy-spirit/07-steps-to-being-filled.htm /train-and-grow/classics/transferable-concepts/be-filled-with-the-holy-spirit.7.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/transferable-concepts/be-filled-with-the-holy-spirit/03-who-and-why-holy-spirit.htm /train-and-grow/classics/transferable-concepts/be-filled-with-the-holy-spirit.3.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/10-basic-steps/3-the-holy-spirit/06-filled-continually.htm /train-and-grow/classics/10-basic-steps/3-the-holy-spirit.6.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/10-basic-steps/5-the-bible/06-need-for-gods-word.htm /train-and-grow/classics/10-basic-steps/5-the-bible.6.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/devotional-life/personal-guide-to-fasting/02-why-you-should-fast.htm /train-and-grow/devotional-life/personal-guide-to-fasting.2.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/devotional-life/personal-guide-to-fasting/04-how-long-and-what-type.htm /train-and-grow/devotional-life/personal-guide-to-fasting.4.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/10-basic-steps/3-the-holy-spirit/05-how-you-can-know.htm /train-and-grow/classics/10-basic-steps/3-the-holy-spirit.5.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/10-basic-steps/6-obedience/01-knowing-gods-will.htm /train-and-grow/classics/10-basic-steps/6-obedience.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/transferable-concepts/be-filled-with-the-holy-spirit/04-what-does-it-mean-to-be-filled.htm /train-and-grow/classics/transferable-concepts/be-filled-with-the-holy-spirit.4.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/transferable-concepts/love-by-faith/02-5-truths-about-love-unconditional.htm /train-and-grow/classics/transferable-concepts/love-by-faith.2.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/10-basic-steps/3-the-holy-spirit/06-filled-continually.htm /train-and-grow/classics/10-basic-steps/3-the-holy-spirit.6.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/transferable-concepts/love-by-faith/02-5-truths-about-love-unconditional.htm /train-and-grow/classics/transferable-concepts/love-by-faith.2.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/transferable-concepts/love-by-faith/04-5-truths-about-love-you-can-love-by-faith.htm /train-and-grow/classics/transferable-concepts/love-by-faith.4.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/devotional-life/7-steps-to-fasting/02-how-to-begin-your-fast.htm /train-and-grow/devotional-life/7-steps-to-fasting.2.html  [R=301,L]
+      	RewriteRule ^/how-to-know-god/who-is-jesus-god-or-just-a-good-man/was-jesus-god.htmttps://www.google.com/ /how-to-know-god/who-is-jesus-god-or-just-a-good-man.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/transferable-concepts/be-filled-with-the-holy-spirit/03-who-and-why-holy-spirit.htm /train-and-grow/classics/transferable-concepts/be-filled-with-the-holy-spirit.3.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/classics/transferable-concepts/experience-the-adventure-of-giving/07-trust-god-for-finances.htm /train-and-grow/classics/transferable-concepts/experience-the-adventure-of-giving.7.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/devotional-life/7-steps-to-fasting/04-breaking-your-fast.htm /train-and-grow/devotional-life/7-steps-to-fasting.4.html  [R=301,L]
+      	RewriteRule ^/training-and-growth/devotional-life/personal-guide-to-fasting/11-finishing-your-fast.htm /train-and-grow/devotional-life/personal-guide-to-fasting.11.html  [R=301,L]
+      	RewriteRule ^/10steps(.*) /train-and-grow/classics/10-basic-steps.html [R=301,L]
+        RewriteRule ^/7steps(.*) /train-and-grow/devotional-life/7-steps-to-fasting.html [R=301,L]
+        RewriteRule ^/about-us/donor-relations/guidelines/index.aspx /about/donor-relations.html [R=301,L]
+        RewriteRule ^/about-us/in-their-words/other-ministries.aspx /about.html [R=301,L]
+        RewriteRule ^/about-us/index.aspx /about.html [R=301,L]
+        RewriteRule ^/about-us/ministry-profile/index.aspx /about.html [R=301,L]
+        RewriteRule ^/about-us/ministry-profile/statement-of-faith.aspx /about/statement-of-faith.html [R=301,L]
+        RewriteRule ^/about-us/policies/privacy-policy.aspx /about/privacy.html [R=301,L]
+        RewriteRule ^/about-us/policies/terms-of-use.aspx about/terms-of-use.html [R=301,L]
+        RewriteRule ^/cgi-bin/promises.cgi /train-and-grow/devotional-life/todays-promise.html [R=301,L]
+        RewriteRule ^/good-news(.*) /how-to-know-god.html [R=301,L]
+        RewriteRule ^/growth/growing-closer-to-god/7-steps-to-fasting-and-prayer/index.aspx /train-and-grow/devotional-life/7-steps-to-fasting.html [R=301,L]
+        RewriteRule ^/growth/growing-closer-to-god/how-to-fast/index.aspx /train-and-grow/devotional-life/personal-guide-to-fasting.html [R=301,L]
+        RewriteRule ^/growth/spirit-filled-life/index.aspx /train-and-grow/classics/the-spirit-filled-life.html [R=301,L]
+        RewriteRule ^/growth/todays-promise/index.aspx /train-and-grow/devotional-life/todays-promise.html [R=301,L]
+        RewriteRule ^/growth/todays-promise/index.aspx /train-and-grow/devotional-life/todays-promise.html [R=301,L]
+        RewriteRule ^/how-to-know-god/index.aspx /how-to-know-god.html [R=301,L]
+        RewriteRule ^/how-to-know-god/jesus-and-the-intellectual/index.aspx /how-to-know-god/jesus-and-the-intellectual.html [R=301,L]
+        RewriteRule ^/how-to-know-god/jesus/was-jesus-god.aspx /how-to-know-god/who-is-jesus-god-or-just-a-good-man.html [R=301,L]
+        RewriteRule ^/how-to-know-god/jesus/who-is-jesus-god-or-just-a-good-man.aspx /how-to-know-god/who-is-jesus-god-or-just-a-good-man.html [R=301,L]
+        RewriteRule ^/how-to-know-god/jesus/why-resurrection-matters.aspx /how-to-know-god/did-jesus-christ-really-rise-from-the-dead.html [R=301,L]
+        RewriteRule ^/howtofast(.*) /train-and-grow/devotional-life/personal-guide-to-fasting.html [R=301,L]
+        RewriteRule ^/intellectual(.*) /how-to-know-god/jesus-and-the-intellectual.html [R=301,L]
+        RewriteRule ^/keys /train-and-grow.html [R=301,L]
+        RewriteRule ^/laws(.*) /how-to-know-god/would-you-like-to-know-god-personally.html [R=301,L]
+        RewriteRule ^/materials.html /train-and-grow.html [R=301,L]
+        RewriteRule ^/ministries-and-locations.aspx /communities.html [R=301,L]
+        RewriteRule ^/ministries/college/index.aspx /campus.html [R=301,L]
+        RewriteRule ^/ministries/locations.html /communities.html [R=301,L]
+        RewriteRule ^/ministries/military/index.aspx /military.html [R=301,L]
+        RewriteRule ^/ministries/united-states-international-ministries.html /communities.html [R=301,L]
+        RewriteRule ^/ministries/united-states-ministries.html /communities.html [R=301,L]
+        RewriteRule ^/mission_statement.html /about.html [R=301,L]
+        RewriteRule ^/online_store.html /store.html [R=301,L]
+        RewriteRule ^/opportunities/careers/supported/application-process.aspx /opportunities/careers/supported-staff/application-process/applications-training-dates.html  [R=301,L]
+        RewriteRule ^/promises(.*) /train-and-grow/devotional-life/todays-promise.html [R=301,L]
+        RewriteRule ^/Promises(.*) /train-and-grow/devotional-life/todays-promise.html [R=301,L]
+        RewriteRule ^/ryw(.*) /train-and-grow/reach-your-world.html [R=301,L]
+        RewriteRule ^/spirit(.*) /train-and-grow/classics/the-spirit-filled-life.html [R=301,L]
+        RewriteRule ^/spiritual_growth.html /training-and-growth.html [R=301,L]
+        RewriteRule ^/staff_volunteer_opportunities.html /opportunities.html [R=301,L]
+        RewriteRule ^/statement_of_faith.html /about/statement-of-faith.html [R=301,L]
+        RewriteRule ^/store/index.aspx /store.html [R=301,L]
+        RewriteRule ^/text.html http://www.cru.org/ [R=301,L]
+        RewriteRule ^/transferable_concepts(.*) /train-and-grow/classics/transferable-concepts.html [R=301,L]
+        RewriteRule ^/whoisJesus(.*) /how-to-know-god/would-you-like-to-know-god-personally.html [R=301,L]
+        RewriteRule ^/whoisjesus/interactive-journey(.*) /how-to-know-god/would-you-like-to-know-god-personally.html [R=301,L]
+        RewriteRule ^/wij(.*) /how-to-know-god/would-you-like-to-know-god-personally.html [R=301,L]
+        RewriteRule ^/wyltkgp(.*) /how-to-know-god/would-you-like-to-know-god-personally.html [R=301,L]
+        RewriteRule ^/ccci.org http://www.cru.org/ [R=301,L]
+	      RewriteRule ^/index.htm http://www.cru.org [L,R=301]
+
+#rewrite rules added by Steve Bratton  9/9 1am
+	      RewriteCond %{REQUEST_URI} !^(.*)/index.htm
+	      RewriteRule ^(.*).htm$ $1.html
+        RewriteRule ^/training-and-growth(.*)$ /train-and-grow$1 [L,R=301]
+        RewriteRule ^/about-us/policies/privacy-policy/index.htm /about/privacy.html [R=301,L,NC]
+        RewriteRule ^/about-us/policies/terms-of-use/index.htm /about/terms-of-use.html [R=301,L,NC]
+        RewriteRule ^/about-us(.*) about$1 [L,R=301]
+        RewriteRule ^/ministries-and-locations/ministries/campus-ministry(.*) /campus.html [R=301,L]
+        RewriteRule ^/ministries-and-locations/ministries/priority-associates(.*) /city.html [R=301,L]
+        RewriteRule ^/ministries-and-locations/ministries/military-ministry(.*) /military.html [R=301,L]
+        RewriteRule ^/ministries-and-locations/ministries/student-venture(.*) /highschool.html [R=301,L]
+        RewriteRule ^/ministries-and-locations/ministries/athletes-in-action(.*) communities/athletes$1 [L,R=301]
+        RewriteRule ^/ministries-and-locations/ministries/familylife(.*) communities/families$1 [L,R=301]
+        RewriteRule ^/ministries-and-locations/ministries(.*) communities/ministries$1 [L,R=301]
+
+#matches just ministries-and-locations/
+        RewriteRule ^/ministries-and-locations/$ /communities/ [R=301,L,S=1]
+        RewriteRule ^/ministries-and-locations(.*) communities/locations$1 [L,R=301]
+
+#redirects when /index.htm to the proceeding directory.html
+        RewriteRule ^(.*)/index.htm$ $1.html [R=301,L]
+        RewriteRule ^/index.aspx / [R=301,L,NC]
+
+#Rewrites to Stop Wordpress scanning
+        RewriteCond %{REQUEST_URI} ^/admin/*
+        RewriteRule !^/content/cru/us/en - [R=404,L,NC]
+
+        RewriteCond %{REQUEST_URI} ^.*/fckeditor/*
+        RewriteRule !^/content/cru/us/en - [R=404,L,NC]
+
+        RewriteCond %{REQUEST_URI} ^.*/ckeditor/*
+        RewriteRule !^/content/cru/us/en - [R=404,L,NC]
+
+        RewriteCond %{REQUEST_URI} ^.*/WebAdmin/*
+        RewriteRule !^/content/cru/us/en - [R=404,L,NC]
+
+        RewriteCond %{REQUEST_URI} ^/administrator/*
+        RewriteRule !^/content/cru/us/en - [R=404,L,NC]
+
+        RewriteCond %{REQUEST_URI} ^.*/kcfinder/*
+        RewriteRule !^/content/cru/us/en - [R=404,L,NC]
+
+ 	      RewriteCond %{REQUEST_URI} ^.*/autodiscover/*
+        RewriteRule !^/content/cru/us/en - [R=404,L,NC]
+
+#If there is a request that ends with / pass to publisher the full path url to homepage
+
+        RewriteRule ^/$ /content/cru/us/en.html [PT,L]
+
+#404
+        RewriteCond %{REQUEST_URI} ^/content
+        RewriteCond %{REQUEST_URI} !^/content/campaigns
+        RewriteCond %{REQUEST_URI} !^/content/dam
+        RewriteRule !^/content/cru/us/en - [R=404,L,NC]
+
+#Remove traling slash
+
+	      RewriteCond %{REQUEST_URI} !\.html$
+        RewriteCond %{REQUEST_URI} /$
+        RewriteRule ^(.+)/$ $1.html [L,R=301]
+
+	      RewriteCond %{REQUEST_URI} !\.html$
+        RewriteCond %{REQUEST_URI} !(\.[a-zA-Z1-9]+)$
+        RewriteRule !.*\.html$ %{REQUEST_URI}.html [L,R=301]
+
+        #Conditional rewrite with Passthrough condition for back-end URL rewrite
+
+        RewriteCond %{REQUEST_URI} !^/apps
+        RewriteCond %{REQUEST_URI} !^/content
+        RewriteCond %{REQUEST_URI} !^/etc
+        RewriteCond %{REQUEST_URI} !^/home
+        RewriteCond %{REQUEST_URI} !^/libs
+        RewriteCond %{REQUEST_URI} !^/tmp
+        RewriteCond %{REQUEST_URI} !^/var
+        RewriteCond %{REQUEST_URI} !^/images
+        RewriteCond %{REQUEST_URI} !^/fonts
+	      RewriteCond %{REQUEST_URI} !^/.*(\.png)$
+        RewriteCond %{REQUEST_URI} !^/.*(\.ico)$
+        RewriteCond %{REQUEST_URI} !^/.*\.css$
+	      RewriteCond %{REQUEST_URI} !^/robots.txt$
+        RewriteCond %{REQUEST_URI} !^/system
+        RewriteCond %{REQUEST_URI} !^/site
+	      #RewriteCond %{REQUEST_URI}  ^/.*(\.html)$
+        RewriteRule ^/(.*)$ /content/cru/us/en/$1 [PT,L]
+
+#Rewrite logging
+                RewriteLog "/var/log/httpd/rewrite.log"
+                RewriteLogLevel 2
+
+#Apache logging
+
+        ErrorLog /var/log/httpd/cru_error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel error
+
+        CustomLog /var/log/httpd/cru_access.log combined
+
+</VirtualHost>
