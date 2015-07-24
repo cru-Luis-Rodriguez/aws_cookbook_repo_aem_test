@@ -13,7 +13,7 @@ service 'apache2' do
     provider Chef::Provider::Service::Init
 end
 
-template "node['aem']['apache']['home']/sites-available/cru.conf" do
+template "#{node['aem']['apache']['home']}/sites-available/cru.conf" do
     source 'cruorg.erb'
     owner "root"
     group "root"
@@ -28,12 +28,12 @@ template "node['aem']['apache']['home']/sites-available/cru.conf" do
               :host_alias => "node['host_name'].cru.org"
               )
 
-	only_if { File.exist?("node['aem']['apache']['home']/sites-available/") }
+	only_if { File.exist?("#{node['aem']['apache']['home']}/sites-available") }
 end
 
 execute 'a2ensite' do
   command 'a2ensite cru.conf'
   action :run
   notifies :restart, "service[apache2]", :immediately
-only_if { File.exist?("node['aem']['apache']['home']/sites-available/cru.conf") }
+only_if { File.exist?("#{node['aem']['apache']['home']}/sites-available/cru.conf") }
 end
