@@ -32,6 +32,6 @@ end
 execute 'a2ensite' do
   command 'a2ensite cru.conf'
   action :run
-  notifies :restart, "service[apache2]", :immediately
+  notifies :restart, "service[httpd]", :immediately
 only_if { File.exist?("#{node['aem']['apache']['home']}/sites-available/cru.conf") }
 end
