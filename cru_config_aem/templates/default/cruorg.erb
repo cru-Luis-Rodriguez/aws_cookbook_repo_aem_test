@@ -3,7 +3,7 @@
 #
 <VirtualHost _default_:80>
         ServerName www.<%= @site %>
-        ServerAlias <%= @host_ip %> <%= @host_name %> <%= @site %> <%= @site_alias1  %> <%= @site_alias2 %> <%= @host_alias %>
+        ServerAlias <%= @host_ip %> <%= @host_name %>.<%= @domain %> <%= @site %> <%= @site_alias1  %> <%= @site_alias2 %> 
 
 	#ServerAdmin provided via chef role
         ServerAdmin <%= @server_admin %>
