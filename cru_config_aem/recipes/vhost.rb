@@ -33,7 +33,7 @@ template "#{node['aem']['apache']['home']}/sites-available/cru.conf" do
               :site => "#{node['aem']['dispatcher']['site_name']}",
               :site_alias1 => node['aem']['dispatcher']['alias1'],
               :site_alias2 => node['aem']['dispatcher']['alias2'],
-	            :server_admin => "#{node['aem']['dispatcher']['vhost_email']}",
+              :server_admin => "#{node['aem']['dispatcher']['vhost_email']}",
               :domain => "#{node['aem']['dispatcher']['domain']}"
               )
 
