@@ -19,10 +19,10 @@ template "#{node['aem']['apache']['home']}/sites-available/cru.conf" do
     variables(
               :host_name => node['hostname'],
               :host_ip => node['ipaddress'],
-              :site => "#{node['dispatcher']['site_name']}",
-              :site_alias1 => node['dispatcher']['alias1'],
-              :site_alias2 => node['dispatcher']['alias2'],
-	            :server_admin => "#{node['dispatcher']['vhost_email']}",
+              :site => "#{node['aem']['dispatcher']['site_name']}",
+              :site_alias1 => node['aem']['dispatcher']['alias1'],
+              :site_alias2 => node['aem']['dispatcher']['alias2'],
+	            :server_admin => "#{node['aem']['dispatcher']['vhost_email']}",
               :host_alias => "#{node['host_name']}.cru.org"
               )
 
