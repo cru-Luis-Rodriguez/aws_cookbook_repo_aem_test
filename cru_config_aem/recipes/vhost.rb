@@ -11,6 +11,14 @@ service 'httpd' do
     provider Chef::Provider::Service::Init
 end
 
+directory '/var/www/html/cru.org' do
+  owner 'apache'
+  group 'apache'
+  mode '0755'
+  action :create
+  only_if { !File.exist?("/var/www/html/cru.org") }
+end
+
 template "#{node['aem']['apache']['home']}/sites-available/cru.conf" do
     source 'cruorg.erb'
     owner "root"
@@ -23,7 +31,7 @@ template "#{node['aem']['apache']['home']}/sites-available/cru.conf" do
               :site_alias1 => node['aem']['dispatcher']['alias1'],
               :site_alias2 => node['aem']['dispatcher']['alias2'],
 	            :server_admin => "#{node['aem']['dispatcher']['vhost_email']}",
-              :host_alias => "#{node['host_name']}.cru.org"
+              :host_alias => "node['host_name'].cru.org"
               )
 
 	only_if { File.exist?("#{node['aem']['apache']['home']}/sites-available") }
