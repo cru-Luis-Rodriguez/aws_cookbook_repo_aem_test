@@ -18,7 +18,7 @@ template "#{node['aem']['apache']['home']}/sites-available/cru.conf" do
     mode 0644
     variables(
               :host_name => node['hostname'],
-              :host_ip => node['ipaddress']},
+              :host_ip => node['ipaddress'],
               :site => "#{node['dispatcher']['site_name']}",
               :site_alias1 => node['dispatcher']['alias1'],
               :site_alias2 => node['dispatcher']['alias2'],
