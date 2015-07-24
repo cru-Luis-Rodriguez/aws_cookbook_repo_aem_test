@@ -25,7 +25,7 @@ template "node['aem']['apache']['home']/sites-available/cru.conf" do
               :site_alias1 => node['dispatcher']['alias1'],
               :site_alias2 => node['dispatcher']['alias2'],
 	            :server_admin => node['dispatcher']['vhost_email'],
-              :host_alias => node['host_name'].cru.org"
+              :host_alias => "node['host_name'].cru.org"
               )
 
 	only_if { File.exist?("node['aem']['apache']['home']/sites-available/") }
