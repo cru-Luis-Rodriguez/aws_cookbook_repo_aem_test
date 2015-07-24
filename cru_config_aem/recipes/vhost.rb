@@ -6,6 +6,9 @@
 # All rights reserved - Do Not Redistribute
 
 
+#notes
+#remember to replace instances of "cru.org" with variable #{node['aem']['dispatcher']['site_name']}
+
 service 'httpd' do
     supports :status => true, :restart => true
     provider Chef::Provider::Service::Init
@@ -31,7 +34,7 @@ template "#{node['aem']['apache']['home']}/sites-available/cru.conf" do
               :site_alias1 => node['aem']['dispatcher']['alias1'],
               :site_alias2 => node['aem']['dispatcher']['alias2'],
 	            :server_admin => "#{node['aem']['dispatcher']['vhost_email']}",
-              :host_alias => node['host_name'].cru.org
+              :host_alias => "#{host_name}".cru.org"
               )
 
 	only_if { File.exist?("#{node['aem']['apache']['home']}/sites-available") }
