@@ -1,4 +1,4 @@
-name             'aem_set_server'
+name             'cru_config_aem'
 maintainer       'cru'
 maintainer_email 'luis.rodriguez@cru.org'
 license          'All rights reserved'
