@@ -22,9 +22,6 @@ template '/opt/scripts/add_dispatcher.sh' do
     :author_port => node['aem']['author']['port'],
     :instance => node['hostname'],
     :ipaddress => node['ipaddress'],
-    :port => node['aem']['dispatcher']['port'],
-    :user => node['aem']['dispatcher']['admin_user'],
-    :password => node['aem']['dispatcher']['admin_password'],
     :local_user => node['aem']['author']['admin_user'],
     :local_password => node['aem']['author']['new_admin_password']
   )
