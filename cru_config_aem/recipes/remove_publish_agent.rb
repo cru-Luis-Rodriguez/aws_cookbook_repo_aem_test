@@ -20,7 +20,7 @@ template '/opt/scripts/remove_publish.sh' do
     :author_port => node['aem']['author']['port'],
     :instance => node['hostname'],
     :local_user => node['aem']['author']['admin_user'],
-    :local_password => node['aem']['author']['admin_password']
+    :local_password => node['aem']['author']['new_admin_password']
   )
 end
 
@@ -28,5 +28,3 @@ execute 'remove_publish' do
   command '/opt/scripts/remove_publish.sh'
   action :run
 end
-
-

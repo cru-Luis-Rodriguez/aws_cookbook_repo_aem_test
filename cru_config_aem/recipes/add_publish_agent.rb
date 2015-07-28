@@ -24,7 +24,7 @@ template '/opt/scripts/add_publish.sh' do
     :user => node['aem']['publish']['admin_user'],
     :password => node['aem']['publish']['admin_password'],
     :local_user => node['aem']['author']['admin_user'],
-    :local_password => node['aem']['author']['admin_password']
+    :local_password => node['aem']['author']['new_admin_password']
   )
 end
 
@@ -32,4 +32,3 @@ execute 'add_publish' do
   command '/opt/scripts/add_publish.sh'
   action :run
 end
-
