@@ -1,3 +1,4 @@
+
 author = search(:node, "role:author").first
   Chef::Log.info("author private IP is '#{author['private_ip']}'")
   Chef::Log.info("author hostname is '#{author['hostname']}'")
@@ -33,5 +34,3 @@ execute 'add_dispatcher' do
   command '/opt/scripts/add_dispatcher.sh'
   action :run
 end
-
-  

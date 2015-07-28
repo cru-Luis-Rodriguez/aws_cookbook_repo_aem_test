@@ -3,7 +3,7 @@
 #
 <VirtualHost _default_:80>
         ServerName www.<%= @site %>
-        ServerAlias <%= @host_ip %> <%= @host_name %>.<%= @domain %> <%= @site %> <%= @site_alias1  %> <%= @site_alias2 %> 
+        ServerAlias <%= @host_ip %> <%= @host_name %>.<%= @domain %> <%= @site %> <%= @site_alias1  %> <%= @site_alias2 %>
 
 	#ServerAdmin provided via chef role
         ServerAdmin <%= @server_admin %>
@@ -21,7 +21,7 @@
 
   RewriteEngine On
 
-# all  urls set env vars FIRST
+# all  urls set env vars FIRST, needed for relay pluggin
        RewriteRule (.*) - [QSA,E=FIRST:%{REQUEST_SCHEME}://%{HTTP_HOST}:%{SERVER_PORT}%{REQUEST_URI}?%{QUERY_STRING}]
 
 # if env var FIRST is set then create header First: $ENV{FIRST}

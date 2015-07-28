@@ -14,12 +14,12 @@ service 'httpd' do
     provider Chef::Provider::Service::Init
 end
 
-directory '/var/www/html/cru.org' do
+directory "/var/www/html/#{node['aem']['dispatcher']['site_name']}" do
   owner 'apache'
   group 'apache'
   mode '0755'
   action :create
-  only_if { !File.exist?("/var/www/html/cru.org") }
+  only_if { !File.exist?("/var/www/html/#{node['aem']['dispatcher']['site_name']}") }
 end
 
 template "#{node['aem']['apache']['home']}/sites-available/cru.conf" do
