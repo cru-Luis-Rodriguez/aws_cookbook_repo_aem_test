@@ -12,6 +12,7 @@
 #
 #need to come up with a way to copy multiple files from the path
 
+include_recipe 'aws'
 aws = data_bag_item("aws", "main")
 
 aws_s3_file "/tmp/job_config/cruorgaem6.xml" do
