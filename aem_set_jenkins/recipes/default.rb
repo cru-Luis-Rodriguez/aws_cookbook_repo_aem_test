@@ -15,20 +15,20 @@
 include_recipe 'aws'
 aws = data_bag_item("aws", "main")
 
-directory "/tmp/job_config" do
+directory "/tmp/jobs_config" do
     owner "root"
     group "root"
     mode "0755"
     action :create
 end
 
-aws_s3_file "/tmp/job_config/cruorgaem6.xml" do
+aws_s3_file "/tmp/jobs_config/cruorgaem6.xml" do
     bucket "cru-aem6"
-    remote_path ("/installation_files/jenkins/job_config/cruorgaem6.xml")
+    remote_path ("/installation_files/jenkins/jobs_config/cruorgaem6.xml")
     aws_access_key_id aws['aws_access_key_id']
     aws_secret_access_key aws['aws_secret_access_key']
     mode "0644"
-    not_if { ::File.exist?("/tmp/job_config/cruorgaem6.xml") }
+    not_if { ::File.exist?("/tmp/jobs_config/cruorgaem6.xml") }
 end
 
 
@@ -67,7 +67,7 @@ jenkins_plugin 'WindowsSlavesPlugin'
 
 # Create a jenkins job (default action is `:create`)
 jenkins_job 'cruorgaem6' do
-  config "/tmp/job_config/cruorgaem6.xml"
+  config "/tmp/jobs_config/cruorgaem6.xml"
 end
 
 jenkins_command 'safe-restart'
