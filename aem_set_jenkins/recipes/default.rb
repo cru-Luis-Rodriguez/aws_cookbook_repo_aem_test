@@ -62,4 +62,4 @@ jenkins_job 'cruorgaem6' do
   config "/tmp/job_config/cruorgaem6.xml"
 end
 
-jenkins_comman 'safe-restart'
+jenkins_command 'safe-restart'
