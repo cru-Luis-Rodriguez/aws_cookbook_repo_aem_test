@@ -15,6 +15,13 @@
 include_recipe 'aws'
 aws = data_bag_item("aws", "main")
 
+directory "/tmp/job_config" do
+    owner "root"
+    group "root"
+    mode "0755"
+    action :create
+end
+
 aws_s3_file "/tmp/job_config/cruorgaem6.xml" do
     bucket "cru-aem6"
     remote_path ("/installation_files/jenkins/job_config/cruorgaem6.xml")
