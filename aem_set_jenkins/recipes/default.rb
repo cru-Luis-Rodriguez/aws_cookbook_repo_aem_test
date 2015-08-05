@@ -15,6 +15,8 @@
 include_recipe 'aws'
 aws = data_bag_item("aws", "main")
 
+jobs = new_resource.remote_hosts
+
 directory "/tmp/jobs_config" do
     owner "root"
     group "root"
