@@ -15,7 +15,7 @@
 include_recipe 'aws'
 aws = data_bag_item("aws", "main")
 
-jobs = new_resource.remote_hosts
+jobs = node['aem']['jenkins']['jobs']
 
 directory "/tmp/jobs_config" do
     owner "root"
@@ -23,13 +23,6 @@ directory "/tmp/jobs_config" do
     mode "0755"
     action :create
 end
-
-jobs = [
-  "cruorgaem6",
-  "Backup_AEM_Production_Author_Repo",
-  "CruOrgaem6_Auto_Production_DailyContentFlush",
-  "CruOrgaem6_Manual_Prod_Pub_Designs_DispatcherClear"
-]
 
 jobs.sort! { |a,b| a[:name] <=> b[:name] }
 jobs.each do |j|
