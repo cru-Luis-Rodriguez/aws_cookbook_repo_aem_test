@@ -15,8 +15,6 @@
 include_recipe 'aws'
 aws = data_bag_item("aws", "main")
 
-jobs = node['aem']['jenkins']['jobs']
-
 directory "/tmp/jobs_config" do
     owner "root"
     group "root"
@@ -24,15 +22,14 @@ directory "/tmp/jobs_config" do
     action :create
 end
 
-jobs.sort! { |a,b| a[:name] <=> b[:name] }
-jobs.each do |j|
-  aws_s3_file "/tmp/jobs_config/#{j}.xml" do
+node['aem']['jenkins']['jobs'].each do |job|
+  aws_s3_file "/tmp/jobs_config/#{job}.xml" do
       bucket "cru-aem6"
-      remote_path ("/installation_files/jenkins/jobs_config/#{j}.xml")
+      remote_path ("/installation_files/jenkins/jobs_config/#{job}.xml")
       aws_access_key_id aws['aws_access_key_id']
       aws_secret_access_key aws['aws_secret_access_key']
       mode "0644"
-      not_if { ::File.exist?("/tmp/jobs_config/#{j}.xml") }
+      not_if { ::File.exist?("/tmp/jobs_config/#{job}.xml") }
   end
 end
 #list of plugin to install
