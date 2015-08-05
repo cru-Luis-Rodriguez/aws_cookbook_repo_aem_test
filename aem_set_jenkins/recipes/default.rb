@@ -22,16 +22,6 @@ directory "/tmp/jobs_config" do
     action :create
 end
 
-node['aem']['jenkins']['jobs'].each do |job|
-  aws_s3_file "/tmp/jobs_config/#{job}.xml" do
-      bucket "cru-aem6"
-      remote_path ("/installation_files/jenkins/jobs_config/#{job}.xml")
-      aws_access_key_id aws['aws_access_key_id']
-      aws_secret_access_key aws['aws_secret_access_key']
-      mode "0644"
-      not_if { ::File.exist?("/tmp/jobs_config/#{job}.xml") }
-  end
-end
 #list of plugin to install
 #use the plugin id -- not plugin name
 jenkins_plugin 'disk-usage'
@@ -67,9 +57,21 @@ jenkins_plugin 'token-macro'
 jenkins_plugin 'translation'
 jenkins_plugin 'windows-slaves'
 
-# Create a jenkins job (default action is `:create`)
-jenkins_job 'cruorgaem6' do
-  config "/tmp/jobs_config/cruorgaem6.xml"
+#copies the jobs config.xml to the server from s3
+node['aem']['jenkins']['jobs'].each do |job|
+  aws_s3_file "/tmp/jobs_config/#{job}.xml" do
+      bucket "cru-aem6"
+      remote_path ("/installation_files/jenkins/jobs_config/#{job}.xml")
+      aws_access_key_id aws['aws_access_key_id']
+      aws_secret_access_key aws['aws_secret_access_key']
+      mode "0644"
+      not_if { ::File.exist?("/tmp/jobs_config/#{job}.xml") }
+  end
+  # Create a jenkins job (default action is `:create`)
+  jenkins_job "#{job}" do
+    config "/tmp/jobs_config/#{job}.xml"
+  end
 end
+
 
 jenkins_command 'safe-restart'
