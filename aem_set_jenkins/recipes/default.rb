@@ -31,8 +31,8 @@ aws_s3_file "/tmp/jobs_config/cruorgaem6.xml" do
     not_if { ::File.exist?("/tmp/jobs_config/cruorgaem6.xml") }
 end
 
-
-jenkins_plugin 'disk-usage plugin'
+jenkins_plugin 'greenballs'
+#jenkins_plugin 'disk-usage plugin'
 #jenkins_plugin 'AntPlugin'
 #jenkins_plugin 'CASPlugin'
 #jenkins_plugin 'CASprotocolversion1plugin'
