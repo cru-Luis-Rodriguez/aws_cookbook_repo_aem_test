@@ -23,7 +23,14 @@ directory "/tmp/jobs_config" do
     mode "0755"
     action :create
 end
-jobs = [cruorgaem6,Backup_AEM_Production_Author_Repo,CruOrgaem6_Auto_Production_DailyContentFlush,CruOrgaem6_Manual_Prod_Pub_Designs_DispatcherClear]
+
+jobs = [
+  "cruorgaem6",
+  "Backup_AEM_Production_Author_Repo",
+  "CruOrgaem6_Auto_Production_DailyContentFlush",
+  "CruOrgaem6_Manual_Prod_Pub_Designs_DispatcherClear"
+]
+
 jobs.sort! { |a,b| a[:name] <=> b[:name] }
 jobs.each do |j|
   aws_s3_file "/tmp/jobs_config/#{j}.xml" do
