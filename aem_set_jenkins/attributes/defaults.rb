@@ -1,5 +1,5 @@
 # General settings
-default['aem']['jenkins']['jobs'] = [
+default['aem']['jenkins']['jobs'] = %w{
   "cruorgaem6",
   "Backup_AEM_Production_Author_Repo",
   "CruOrgaem6_Auto_Production_DailyContentFlush",
@@ -13,7 +13,7 @@ default['aem']['jenkins']['jobs'] = [
   "cruorgaem6_UAT",
   "cruorgaem6_UATDispatcherClear"
 
-],
+},
 default['aem']['jenkins']['plugin_conf'] = [
   "jenkins.plugins.hipchat.HipChatNotifier"
 ],
