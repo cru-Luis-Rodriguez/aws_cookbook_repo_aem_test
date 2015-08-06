@@ -28,7 +28,6 @@ node['aem']['jenkins']['plugins'].each do |plugin|
   jenkins_plugin "#{plugin}" do
     action :install
   end
-not_if { ::File.exist?("/var/lib/jenkins/plugins/#{plugin}.jpi") }
 end
 
 #copies the jobs config.xml to the server from s3
