@@ -13,4 +13,7 @@ default['aem']['jenkins']['jobs'] = [
   "cruorgaem6_UAT",
   "cruorgaem6_UATDispatcherClear"
 
+],
+default['aem']['jenkins']['plugin_conf'] = [
+  "jenkins.plugins.hipchat.HipChatNotifier"
 ]

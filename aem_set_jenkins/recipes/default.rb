@@ -73,5 +73,19 @@ node['aem']['jenkins']['jobs'].each do |job|
   end
 end
 
+#copies the plugin configuration settings to the server from s3
+node['aem']['jenkins']['plugin_conf'].each do |conf|
+  aws_s3_file "/var/lib/jenkins/#{conf}.xml" do
+      bucket "cru-aem6"
+      remote_path ("/installation_files/jenkins/plugin_conf/#{conf}.xml")
+      aws_access_key_id aws['aws_access_key_id']
+      aws_secret_access_key aws['aws_secret_access_key']
+      owner "jenkins"
+      group "jenkins"
+      mode "0755"
+      not_if { ::File.exist?("/var/lib/jenkins/#{conf}.xml") }
+  end
+
+end
 
 jenkins_command 'safe-restart'
