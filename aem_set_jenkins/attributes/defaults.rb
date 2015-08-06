@@ -1,7 +1,5 @@
 # General settings
-default['aem']['jenkins']['plugin_conf'] = [
-  'jenkins.plugins.hipchat.HipChatNotifier'
-],
+default['aem']['jenkins']['plugin_conf'] = %w{jenkins.plugins.hipchat.HipChatNotifier}
 default['aem']['jenkins']['plugins'] = [
    'disk-usage',
    'ant',
