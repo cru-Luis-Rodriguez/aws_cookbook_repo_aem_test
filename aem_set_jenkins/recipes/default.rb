@@ -25,8 +25,10 @@ end
 #list of plugin to install
 #use the plugin id -- not plugin name
 node['aem']['jenkins']['plugins'].each do |plugin|
-  jenkins_plugin "#{plugin}"
-  not_if { ::File.exist?("/var/lib/jenkins/plugins/#{plugin}.jpi") }
+  jenkins_plugin "#{plugin}" do
+    action :install
+  end
+not_if { ::File.exist?("/var/lib/jenkins/plugins/#{plugin}.jpi") }
 end
 
 #copies the jobs config.xml to the server from s3
@@ -42,7 +44,7 @@ node['aem']['jenkins']['jobs'].each do |job|
   jenkins_job "#{job}" do
     config "/tmp/jobs_config/#{job}.xml"
   end
-  not_if { ::File.exist?("/tmp/jobs_config/#{job}.xml") }
+not_if { ::File.exist?("/tmp/jobs_config/#{job}.xml") }
 end
 
 #copies the plugin configuration settings to the server from s3
