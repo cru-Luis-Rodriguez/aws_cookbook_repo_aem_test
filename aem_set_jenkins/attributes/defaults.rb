@@ -19,36 +19,36 @@ default['aem']['jenkins']['plugin_conf'] = [
 ],
 
 default['aem']['jenkins']['plugins'] = [
-   "disk-usage"
-   "ant"
-   "cas-plugin"
-   "cas1"
-   "credentials"
-   "cvs"
-   "external-monitor-job"
-   "git-client"
-   "git"
-   "hipchat"
-   "javadoc"
-   "junit"
-   "ldap"
-   "mailer"
-   "mapdb-api"
-   "matrix-auth"
-   "matrix-project"
-   "maven-info"
-   "maven-plugin"
-   "metrics-diskusage"
-   "metrics"
-   "antisamy-markup-formatter"
-   "pam-auth"
-   "scm-api"
-   "script-security"
-   "slack"
-   "ssh-credentials"
-   "ssh-slaves"
-   "subversion"
-   "token-macro"
-   "translation"
+   "disk-usage",
+   "ant",
+   "cas-plugin",
+   "cas1",
+   "credentials",
+   "cvs",
+   "external-monitor-job",
+   "git-client",
+   "git",
+   "hipchat",
+   "javadoc",
+   "junit",
+   "ldap",
+   "mailer",
+   "mapdb-api",
+   "matrix-auth",
+   "matrix-project",
+   "maven-info",
+   "maven-plugin",
+   "metrics-diskusage",
+   "metrics",
+   "antisamy-markup-formatter",
+   "pam-auth",
+   "scm-api",
+   "script-security",
+   "slack",
+   "ssh-credentials",
+   "ssh-slaves",
+   "subversion",
+   "token-macro",
+   "translation",
    "windows-slaves"
 ]
