@@ -24,38 +24,10 @@ end
 
 #list of plugin to install
 #use the plugin id -- not plugin name
-jenkins_plugin 'disk-usage'
-jenkins_plugin 'ant'
-jenkins_plugin 'cas-plugin'
-jenkins_plugin 'cas1'
-jenkins_plugin 'credentials'
-jenkins_plugin 'cvs'
-jenkins_plugin 'external-monitor-job'
-jenkins_plugin 'git-client'
-jenkins_plugin 'git'
-jenkins_plugin 'hipchat'
-jenkins_plugin 'javadoc'
-jenkins_plugin 'junit'
-jenkins_plugin 'ldap'
-jenkins_plugin 'mailer'
-jenkins_plugin 'mapdb-api'
-jenkins_plugin 'matrix-auth'
-jenkins_plugin 'matrix-project'
-jenkins_plugin 'maven-info'
-jenkins_plugin 'maven-plugin'
-jenkins_plugin 'metrics-diskusage'
-jenkins_plugin 'metrics'
-jenkins_plugin 'antisamy-markup-formatter'
-jenkins_plugin 'pam-auth'
-jenkins_plugin 'scm-api'
-jenkins_plugin 'script-security'
-jenkins_plugin 'slack'
-jenkins_plugin 'ssh-credentials'
-jenkins_plugin 'ssh-slaves'
-jenkins_plugin 'subversion'
-jenkins_plugin 'token-macro'
-jenkins_plugin 'translation'
-jenkins_plugin 'windows-slaves'
+node['aem']['jenkins']['plugins'].each do |plugin|
+  jenkins_plugin "#{plugin}"
+  not_if { ::File.exist?("/var/lib/jenkins/plugins/#{plugin}.jpi") }
+end
 
 #copies the jobs config.xml to the server from s3
 node['aem']['jenkins']['jobs'].each do |job|
@@ -65,12 +37,12 @@ node['aem']['jenkins']['jobs'].each do |job|
       aws_access_key_id aws['aws_access_key_id']
       aws_secret_access_key aws['aws_secret_access_key']
       mode "0644"
-      not_if { ::File.exist?("/tmp/jobs_config/#{job}.xml") }
   end
   # Create a jenkins job (default action is `:create`)
   jenkins_job "#{job}" do
     config "/tmp/jobs_config/#{job}.xml"
   end
+  not_if { ::File.exist?("/tmp/jobs_config/#{job}.xml") }
 end
 
 #copies the plugin configuration settings to the server from s3
@@ -83,9 +55,8 @@ node['aem']['jenkins']['plugin_conf'].each do |conf|
       owner "jenkins"
       group "jenkins"
       mode "0755"
-      not_if { ::File.exist?("/var/lib/jenkins/#{conf}.xml") }
   end
-
+ not_if { ::File.exist?("/var/lib/jenkins/#{conf}.xml") }
 end
 
 jenkins_command 'safe-restart'
