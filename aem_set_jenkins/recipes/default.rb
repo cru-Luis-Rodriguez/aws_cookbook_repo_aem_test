@@ -30,8 +30,9 @@ node['aem']['jenkins']['plugins'].each do |plugin|
   end
 end
 
+
 #copies the jobs config.xml to the server from s3
-node['aem']['jenkins']['jobs'].each do |job|
+%w{cruorgaem6 Backup_AEM_Production_Author_Repo CruOrgaem6_Auto_Production_DailyContentFlush CruOrgaem6_Manual_Prod_Pub_Designs_DispatcherClear Relay_Authentication_Handler aem6.1-communities cruorgaem6DispatcherClear cruorgaem6_PROD cruorgaem6_PRODDispatcherClear cruorgaem6_PRODPublish cruorgaem6_UAT cruorgaem6_UATDispatcherClear'}.each do |job|
   aws_s3_file "/tmp/jobs_config/#{job}.xml" do
       bucket "cru-aem6"
       remote_path ("/installation_files/jenkins/jobs_config/#{job}.xml")
