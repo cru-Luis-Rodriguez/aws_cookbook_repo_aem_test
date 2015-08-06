@@ -38,12 +38,12 @@ node['aem']['jenkins']['jobs'].each do |job|
       aws_access_key_id aws['aws_access_key_id']
       aws_secret_access_key aws['aws_secret_access_key']
       mode "0644"
+      not_if { ::File.exist?("/tmp/jobs_config/#{job}.xml") }
   end
   # Create a jenkins job (default action is `:create`)
   jenkins_job "#{job}" do
     config "/tmp/jobs_config/#{job}.xml"
   end
-not_if { ::File.exist?("/tmp/jobs_config/#{job}.xml") }
 end
 
 #copies the plugin configuration settings to the server from s3
@@ -56,8 +56,8 @@ node['aem']['jenkins']['plugin_conf'].each do |conf|
       owner "jenkins"
       group "jenkins"
       mode "0755"
+      not_if { ::File.exist?("/var/lib/jenkins/#{conf}.xml") }
   end
- not_if { ::File.exist?("/var/lib/jenkins/#{conf}.xml") }
 end
 
 jenkins_command 'safe-restart'
