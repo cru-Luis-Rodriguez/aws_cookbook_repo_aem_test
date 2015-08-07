@@ -51,3 +51,7 @@ node['aem']['hotfix_list'].each do |hotfix|
         not_if { ::File.exist?("/opt/aem/#{type}/crx-quickstart/install/#{hotfix}.zip") }
     end
 end
+
+service "aem-#{type}" do
+  action :restart
+end
