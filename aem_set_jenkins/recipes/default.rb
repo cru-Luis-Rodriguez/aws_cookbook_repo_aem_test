@@ -80,7 +80,7 @@ node['aem']['jenkins']['plugin_conf'].each do |conf|
   end
 end
 #copies the jenkins config to the server from s3
-aws_s3_file "/var/lib/jenkins/.ssh/new_config.xml" do
+aws_s3_file "/var/lib/jenkins/config.xml" do
       bucket "cru-aem6"
       remote_path ("/installation_files/jenkins/config/config.xml")
       aws_access_key_id aws['aws_access_key_id']
@@ -88,7 +88,6 @@ aws_s3_file "/var/lib/jenkins/.ssh/new_config.xml" do
       owner "jenkins"
       group "jenkins"
       mode "0600"
-      not_if { ::File.exist?("/var/lib/jenkins/new_config.xml") }
   end
 
 jenkins_command 'safe-restart'
