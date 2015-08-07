@@ -15,10 +15,16 @@
 include_recipe 'aws'
 aws = data_bag_item("aws", "main")
 
+%w{maven ruby git gcc curl}.each do |pkg2|
+ package "#{pkg2}" do
+   action :upgrade
+ end
+end
+
 directory "/tmp/jobs_config" do
     owner "root"
     group "root"
-    mode "0755"
+    mode "0644"
     action :create
 end
 
@@ -30,15 +36,28 @@ node['aem']['jenkins']['plugins'].each do |plugin|
   end
 end
 
+#copies the ssh key to the server from s3
+node['aem']['jenkins']['ssh_key'].each do |key|
+  aws_s3_file "/var/lib/jenkins/.ssh/#{key}" do
+      bucket "cru-aem6"
+      remote_path ("/installation_files/jenkins/ssh_key/#{key}")
+      aws_access_key_id aws['aws_access_key_id']
+      aws_secret_access_key aws['aws_secret_access_key']
+      owner "jenkins"
+      group "jenkins"
+      mode "0600"
+      not_if { ::File.exist?("/var/lib/jenkins/.ssh/#{key}") }
+  end
+end
 
 #copies the jobs config.xml to the server from s3
-%w{cruorgaem6 Backup_AEM_Production_Author_Repo CruOrgaem6_Auto_Production_DailyContentFlush CruOrgaem6_Manual_Prod_Pub_Designs_DispatcherClear Relay_Authentication_Handler aem6.1-communities cruorgaem6DispatcherClear cruorgaem6_PROD cruorgaem6_PRODDispatcherClear cruorgaem6_PRODPublish cruorgaem6_UAT cruorgaem6_UATDispatcherClear}.each do |job|
+node['aem']['jenkins']['jobs'].each do |job|
   aws_s3_file "/tmp/jobs_config/#{job}.xml" do
       bucket "cru-aem6"
       remote_path ("/installation_files/jenkins/jobs_config/#{job}.xml")
       aws_access_key_id aws['aws_access_key_id']
       aws_secret_access_key aws['aws_secret_access_key']
-      mode "0644"
+      mode "0600"
       not_if { ::File.exist?("/tmp/jobs_config/#{job}.xml") }
   end
   # Create a jenkins job (default action is `:create`)
@@ -56,9 +75,21 @@ node['aem']['jenkins']['plugin_conf'].each do |conf|
       aws_secret_access_key aws['aws_secret_access_key']
       owner "jenkins"
       group "jenkins"
-      mode "0755"
+      mode "0644"
       not_if { ::File.exist?("/var/lib/jenkins/#{conf}.xml") }
   end
 end
+#copies the jenkins config to the server from s3
 
+  aws_s3_file "/var/lib/jenkins/.ssh/new_config.xml" do
+      bucket "cru-aem6"
+      remote_path ("/installation_files/jenkins/config/config.xml")
+      aws_access_key_id aws['aws_access_key_id']
+      aws_secret_access_key aws['aws_secret_access_key']
+      owner "jenkins"
+      group "jenkins"
+      mode "0600"
+      not_if { ::File.exist?("/var/lib/jenkins/new_config.xml") }
+  end
+end
 jenkins_command 'safe-restart'
