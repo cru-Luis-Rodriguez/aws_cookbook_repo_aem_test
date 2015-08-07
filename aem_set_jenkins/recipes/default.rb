@@ -15,7 +15,7 @@
 include_recipe 'aws'
 aws = data_bag_item("aws", "main")
 
-%w{maven ruby git gcc curl}.each do |pkg2|
+%w{ruby git gcc curl}.each do |pkg2|
  package "#{pkg2}" do
    action :upgrade
  end
