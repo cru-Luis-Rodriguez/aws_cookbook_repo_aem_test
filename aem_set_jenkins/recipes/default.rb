@@ -21,6 +21,11 @@ aws = data_bag_item("aws", "main")
  end
 end
 
+gem_package 'sass' do
+  action :install
+  ignore_failure true
+end
+
 directory "/tmp/jobs_config" do
     owner "root"
     group "root"
