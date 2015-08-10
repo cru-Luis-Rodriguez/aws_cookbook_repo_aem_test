@@ -33,6 +33,13 @@ directory "/tmp/jobs_config" do
     action :create
 end
 
+directory "/var/lib/jenkins/.ssh" do
+    owner "jenkins"
+    group "jenkins"
+    mode "0644"
+    action :create
+end
+
 #list of plugin to install
 #use the plugin id -- not plugin name
 node['aem']['jenkins']['plugins'].each do |plugin|

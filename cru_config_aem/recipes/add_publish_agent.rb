@@ -22,7 +22,7 @@ template '/opt/scripts/add_publish.sh' do
     :ipaddress => node['ipaddress'],
     :port => node['aem']['publish']['port'],
     :user => node['aem']['publish']['admin_user'],
-    :password => node['aem']['publish']['admin_password'],
+    :password => node['aem']['publish']['new_admin_password'],
     :local_user => node['aem']['author']['admin_user'],
     :local_password => node['aem']['author']['new_admin_password']
   )
