@@ -36,7 +36,7 @@ end
 directory "/var/lib/jenkins/.ssh" do
     owner "jenkins"
     group "jenkins"
-    mode "0644"
+    mode "0700"
     action :create
 end
 
