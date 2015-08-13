@@ -47,7 +47,7 @@ node['aem']['jenkins']['plugins'].each do |plugin|
     action :install
   end
 end
-
+#need to fix this -- had to change jenkins user to crx
 #copies the ssh key to the server from s3
 node['aem']['jenkins']['ssh_key'].each do |key|
   aws_s3_file "/var/lib/jenkins/.ssh/#{key}" do
