@@ -10,6 +10,13 @@ if node[:chef_environment] != nil
   node.chef_environment = node[:chef_environment]
 end
 
+directory "/opt/aem/tmp" do
+    owner "root"
+    group "opsworks"
+    mode "1777"
+    action :create
+end
+
 directory "/opt/aem/upload" do
     owner "root"
     group "opsworks"
