@@ -15,6 +15,7 @@ directory "/opt/aem/tmp" do
     group "opsworks"
     mode "1777"
     action :create
+    only_if { File.exist?("/opt/aem/") }
 end
 
 directory "/opt/aem/upload" do
@@ -22,4 +23,5 @@ directory "/opt/aem/upload" do
     group "opsworks"
     mode "755"
     action :create
+    only_if { File.exist?("/opt/aem/") }
 end
