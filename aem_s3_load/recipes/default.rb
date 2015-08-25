@@ -9,14 +9,6 @@
 include_recipe 'aws'
 aws = data_bag_item("aws", "main")
 
-directory '/tmp' do
-  owner 'root'
-  group 'root'
-  mode '1777'
-  recursive true
-  action :create
-end
-
 #Get AEM from source
 aws_s3_file "/tmp/#{node['aem']['jar_source']}.jar" do
     bucket "cru-aem6"
