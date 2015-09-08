@@ -25,3 +25,11 @@ directory "/opt/aem/upload" do
     action :create
     only_if { File.exist?("/opt/aem/") }
 end
+
+directory "/backup" do
+    owner "crx"
+    group "crx"
+    mode "755"
+    action :create
+    only_if { File.exist?("/backup") }
+end
