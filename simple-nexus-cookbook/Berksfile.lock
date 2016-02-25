@@ -1,0 +1,23 @@
+DEPENDENCIES
+  java
+  simple-nexus
+    path: .
+    metadata: true
+  test-nexus
+    path: test/fixtures/cookbooks/test-nexus
+
+GRAPH
+  7-zip (1.0.2)
+    windows (>= 1.2.2)
+  ark (0.9.0)
+    7-zip (>= 0.0.0)
+    windows (>= 0.0.0)
+  chef_handler (1.1.6)
+  java (1.31.0)
+  simple-nexus (0.1.0)
+    ark (>= 0.0.0)
+  test-nexus (0.0.0)
+    java (>= 0.0.0)
+    simple-nexus (>= 0.0.0)
+  windows (1.36.6)
+    chef_handler (>= 0.0.0)
