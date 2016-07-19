@@ -8,8 +8,6 @@ version          '2.3.1'
 
 recipe 'master', 'Installs a Jenkins master'
 
-#depends 'apt',   '~> 2.0'
-#anything higher than 4.0 depends on chef version 12
-depends 'apt',   '= 4.0'
+depends 'apt',   '~> 2.0'
 depends 'runit', '~> 1.5'
 depends 'yum',   '~> 3.0'
